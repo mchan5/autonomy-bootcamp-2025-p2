@@ -2,7 +2,7 @@
 Telemetry gathering logic.
 """
 
-import time
+# import time
 
 from pymavlink import mavutil
 

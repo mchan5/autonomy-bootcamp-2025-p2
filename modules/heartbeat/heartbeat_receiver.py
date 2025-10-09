@@ -50,7 +50,7 @@ class HeartbeatReceiver:
         self,
         # args Put your own arguments here
     ) -> None:
-
+        "Runs Code"
         msg = self.connection.recv_match(type="HEARTBEAT", blocking=False)
 
         if msg is not None:
@@ -58,12 +58,11 @@ class HeartbeatReceiver:
             self.logger.info("Heartbeat received")
             return True
 
-        else:
-            self.missed_heartbeats += 1
+        self.missed_heartbeats += 1
 
-            if self.missed_heartbeats == 5:
-                self.logger.error("Connection Lost: Missed 5 Heartbeats")
-                return False
+        if self.missed_heartbeats == 5:
+            self.logger.error("Connection Lost: Missed 5 Heartbeats")
+            return False
 
         """
         Attempt to recieve a heartbeat message.
