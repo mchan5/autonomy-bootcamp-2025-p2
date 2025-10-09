@@ -55,20 +55,21 @@ class HeartbeatReceiver:
 
         if msg is not None:
             self.missed_heartbeats = 0
-            self.logger.info("Heartbeat received")
+            self.local_logger.info("Heartbeat received")
             return True
 
         self.missed_heartbeats += 1
 
         if self.missed_heartbeats == 5:
-            self.logger.error("Connection Lost: Missed 5 Heartbeats")
+            self.local_logger.error("Connection Lost: Missed 5 Heartbeats")
             return False
 
-        """
-        Attempt to recieve a heartbeat message.
-        If disconnected for over a threshold number of periods,
-        the connection is considered disconnected.
-        """
+        return True
+        # """
+        # Attempt to recieve a heartbeat message.
+        # If disconnected for over a threshold number of periods,
+        # the connection is considered disconnected.
+        # """
 
 
 # =================================================================================================

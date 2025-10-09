@@ -75,7 +75,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
 
         if current_telemetry is None:
             self.local_logger.warning("No telemetry data receieved!")
-            return None
+            return
 
         # Log average velocity for this trip so far
 
