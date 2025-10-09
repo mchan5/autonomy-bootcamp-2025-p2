@@ -49,41 +49,39 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    controller
+    controller,
     # args Add any necessary arguments
 ) -> None:
     """
     Stop the workers.
-    
+
     """
-    
+
     controller.request_exit()
 
     # Add logic to stop your worker
 
 
 def read_queue(
-    #args,  # Add any necessary arguments
+    # args,  # Add any necessary arguments
     main_logger: logger.Logger,
-    output_queue: queue_proxy_wrapper.QueueProxyWrapper, 
-    controller: worker_controller.WorkerController
-    
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Read and print the output queue.
     """
-    
-    while not controller.is_exit_requested: 
-        controller.check_pause() 
 
-        term = output_queue.queue.get() 
+    while not controller.is_exit_requested:
+        controller.check_pause()
 
-        if term is None: 
-            break 
-        
+        term = output_queue.queue.get()
+
+        if term is None:
+            break
+
         main_logger.info(f"Heartbeat Receiver Output: {term}")
-        
-        
+
     # Add logic to read from your worker's output queue and print it using the logger
 
 
@@ -133,12 +131,11 @@ def main() -> int:
     # =============================================================================================
     # Mock starting a worker, since cannot actually start a new process
 
-
     # Create a worker controller for your worker
     controller = worker_controller.WorkerController()
 
     # Create a multiprocess manager for synchronized queues
-    manager = mp.Manager() 
+    manager = mp.Manager()
 
     # Create your queues
 
@@ -154,10 +151,10 @@ def main() -> int:
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(main_logger, output_queue, controller)).start()
 
-    heartbeat_receiver_worker.heartbeat_receiver_worker (
-        connection, 
-        main_logger, 
-        controller
+    heartbeat_receiver_worker.heartbeat_receiver_worker(
+        connection,
+        main_logger,
+        controller,
         # Place your own arguments here
     )
     # =============================================================================================

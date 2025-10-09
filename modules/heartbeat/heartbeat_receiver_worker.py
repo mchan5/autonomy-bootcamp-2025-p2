@@ -18,8 +18,8 @@ from ..common.modules.logger import logger
 # =================================================================================================
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
-    local_logger: logger, 
-    controller: worker_controller
+    local_logger: logger,
+    controller: worker_controller,
     # args  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
@@ -51,23 +51,20 @@ def heartbeat_receiver_worker(
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
 
     result, heartbeat_receiver_instance = heartbeat_receiver.HeartbeatReceiver.create(
-        connection, 
-        local_logger
+        connection, local_logger
     )
 
-    if not result: 
-        local_logger.error("Failed to create Heartbeat Receiver") 
-        return 
-    
-    while not controller.is_exit_requested(): 
-        heartbeat_receiver_instance.run() 
-        local_logger.info("Heartbeat received check") 
+    if not result:
+        local_logger.error("Failed to create Heartbeat Receiver")
+        return
+
+    while not controller.is_exit_requested():
+        heartbeat_receiver_instance.run()
+        local_logger.info("Heartbeat received check")
 
     # Main loop: do work.
 
-    # time??? 
-    
-
+    # time???
 
 
 # =================================================================================================

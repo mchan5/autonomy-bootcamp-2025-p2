@@ -19,9 +19,9 @@ from ..common.modules.logger import logger
 def command_worker(
     connection: mavutil.mavfile,
     target: command.Position,
-    input_queue:  queue_proxy_wrapper.QueueProxyWrapper, 
-    output_queue: queue_proxy_wrapper.QueueProxyWrapper, 
-    controller: worker_controller.WorkerController 
+    input_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController,
     # args,  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
@@ -52,33 +52,31 @@ def command_worker(
     # =============================================================================================
     # Instantiate class object (command.Command)
 
-    result, command_instance = command.Command.create(
-        connection,
-        target,
-        local_logger
-    ) 
+    result, command_instance = command.Command.create(connection, target, local_logger)
 
-    if not result or command_instance is None: 
-        local_logger.error("Could not initialize Command object") 
-        return 
-    
-    local_logger.info("Command object created successfully") 
+    if not result or command_instance is None:
+        local_logger.error("Could not initialize Command object")
+        return
+
+    local_logger.info("Command object created successfully")
 
     # Main loop: do work.
 
     # controller = worker_controller.WorkerController()
-    
-    while not controller.is_exit_requested(): 
-        controller.check_pause() 
 
-        try: 
-            current_telemetry = input_queue.queue.get(timeout=1.0) 
-        
-        except Exception: 
-            return 
-        
+    while not controller.is_exit_requested():
+        controller.check_pause()
+
+        try:
+            current_telemetry = input_queue.queue.get(timeout=1.0)
+
+        except Exception:
+            return
+
         response = command_instance.run(current_telemetry)
-        output_queue.queue.put(response, timeout = 0.5)
+        output_queue.queue.put(response, timeout=0.5)
+
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================

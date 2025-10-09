@@ -19,7 +19,7 @@ from ..common.modules.logger import logger
 def telemetry_worker(
     connection: mavutil.mavfile,
     local_logger: logger,
-    output_queue: queue_proxy_wrapper.QueueProxyWrapper
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     # args,  # Place your own arguments here
     # Add other necessary worker arguments here
 ) -> None:
@@ -53,16 +53,15 @@ def telemetry_worker(
 
     # Main loop: do work.
 
-    if not result: 
-        local_logger.error("Failed to have telemetry data", True) 
-        return 
-    
-    controller = worker_controller.WorkerController() 
+    if not result:
+        local_logger.error("Failed to have telemetry data", True)
+        return
 
-    while not controller.is_exit_requested: 
+    controller = worker_controller.WorkerController()
+
+    while not controller.is_exit_requested:
         telemetry_data = telemetry_instance.run()
-        output_queue.queue.put(telemetry_data) 
-        
+        output_queue.queue.put(telemetry_data)
 
 
 # =================================================================================================

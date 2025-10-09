@@ -36,12 +36,12 @@ OUTPUT_QUEUE_MAXSIZE = 0
 # Set worker counts
 
 HEARTBEAT_SENDER_COUNT = 1
-HEARTBEAT_RECEIVER_COUNT = 1 
+HEARTBEAT_RECEIVER_COUNT = 1
 TELEMETRY_WORKER_COUNT = 1
-COMMAND_WORKER_COUNT = 1 
+COMMAND_WORKER_COUNT = 1
 
 # Any other constants
-TARGET_POSITION = command.Position(10,20,30) # might need to edit 
+TARGET_POSITION = command.Position(10, 20, 30)  # might need to edit
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
@@ -82,7 +82,7 @@ def main() -> int:
     # =============================================================================================
     # Create a worker controller
 
-    controller = worker_controller.WorkerController() 
+    controller = worker_controller.WorkerController()
     # Create a multiprocess manager for synchronized queues
 
     manager = mp.Manager()
@@ -97,66 +97,69 @@ def main() -> int:
     command_input_queue = telemetry_output_queue  # telemetry feeds command
     command_output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, OUTPUT_QUEUE_MAXSIZE)
 
-
     # Create worker properties for each worker type (what inputs it takes, how many workers)
     # Heartbeat sender
 
-
     result, heartbeat_sender_properties = worker_manager.WorkerProperties.create(
-        count = HEARTBEAT_SENDER_COUNT, 
-        target=heartbeat_sender_worker.heartbeat_sender_worker, 
-        work_arguments = (connection,), 
-        input_queues = [], 
-        output_queues = [], 
-        controller = controller, 
-        local_logger = main_logger, 
+        count=HEARTBEAT_SENDER_COUNT,
+        target=heartbeat_sender_worker.heartbeat_sender_worker,
+        work_arguments=(connection,),
+        input_queues=[],
+        output_queues=[],
+        controller=controller,
+        local_logger=main_logger,
     )
-    
+
     # Heartbeat receiver
     result, heartbeat_receiver_properties = worker_manager.WorkerProperties.create(
-        count = HEARTBEAT_RECEIVER_COUNT, 
-        target=heartbeat_receiver_worker.heartbeat_receiver_worker, 
-        work_arguments = (connection,), 
-        input_queues = [heartbeat_input_queue], 
-        output_queues = [heartbeat_output_queue], 
-        controller = controller, 
-        local_logger = main_logger, 
+        count=HEARTBEAT_RECEIVER_COUNT,
+        target=heartbeat_receiver_worker.heartbeat_receiver_worker,
+        work_arguments=(connection,),
+        input_queues=[heartbeat_input_queue],
+        output_queues=[heartbeat_output_queue],
+        controller=controller,
+        local_logger=main_logger,
     )
     # Telemetry
 
     result, telemetry_properties = worker_manager.WorkerProperties.create(
-        count = TELEMETRY_WORKER_COUNT, 
-        target=telemetry_worker.telemetry_worker, 
-        work_arguments = (connection,), 
-        input_queues = [telemetry_input_queue],
-        output_queues = [telemetry_output_queue], 
-        controller = controller, 
-        local_logger = main_logger, 
+        count=TELEMETRY_WORKER_COUNT,
+        target=telemetry_worker.telemetry_worker,
+        work_arguments=(connection,),
+        input_queues=[telemetry_input_queue],
+        output_queues=[telemetry_output_queue],
+        controller=controller,
+        local_logger=main_logger,
     )
-    
 
     # Command
 
     result, command_properties = worker_manager.WorkerProperties.create(
-        count = COMMAND_WORKER_COUNT, 
-        target=command_worker.command_worker, 
-        work_arguments = (connection, TARGET_POSITION), 
-        input_queues = [command_input_queue], 
-        output_queues = [command_output_queue], 
-        controller = controller, 
-        local_logger = main_logger, 
+        count=COMMAND_WORKER_COUNT,
+        target=command_worker.command_worker,
+        work_arguments=(connection, TARGET_POSITION),
+        input_queues=[command_input_queue],
+        output_queues=[command_output_queue],
+        controller=controller,
+        local_logger=main_logger,
     )
 
     # Create the workers (processes) and obtain their managers
 
-    result, heartbeat_sender_manager = worker_manager.WorkerManager.create(heartbeat_sender_properties, main_logger)
-    result, heartbeat_receiver_manager = worker_manager.WorkerManager.create(heartbeat_receiver_properties, main_logger)
-    result, telemetry_manager = worker_manager.WorkerManager.create(telemetry_properties, main_logger)
+    result, heartbeat_sender_manager = worker_manager.WorkerManager.create(
+        heartbeat_sender_properties, main_logger
+    )
+    result, heartbeat_receiver_manager = worker_manager.WorkerManager.create(
+        heartbeat_receiver_properties, main_logger
+    )
+    result, telemetry_manager = worker_manager.WorkerManager.create(
+        telemetry_properties, main_logger
+    )
     result, command_manager = worker_manager.WorkerManager.create(command_properties, main_logger)
 
     # Start worker processes
 
-    heartbeat_sender_manager.start_workers() 
+    heartbeat_sender_manager.start_workers()
     heartbeat_receiver_manager.start_workers()
     telemetry_manager.start_workers()
     command_manager.start_workers()
@@ -165,16 +168,16 @@ def main() -> int:
 
     # Main's work: read from all queues that output to main, and log any commands that we make
 
-    start_time = time.time() 
+    start_time = time.time()
     # Continue running for 100 seconds or until the drone disconnects
 
     while time.time() - start_time < 100 and not controller.is_exit_requested:
-        controller.check_pause() 
-        try: 
-            cmd = command_output_queue.queue.get(timeout = 0.5) 
+        controller.check_pause()
+        try:
+            cmd = command_output_queue.queue.get(timeout=0.5)
             if cmd is not None:
-                main_logger.info(f"Command issued: {cmd}") 
-        except queue.Empty: 
+                main_logger.info(f"Command issued: {cmd}")
+        except queue.Empty:
             continue
 
     # Stop the processes

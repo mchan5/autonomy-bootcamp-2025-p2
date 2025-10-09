@@ -54,7 +54,7 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    controller: worker_controller
+    controller: worker_controller,
     # args,  # Add any necessary arguments
 ) -> None:
     """
@@ -67,22 +67,22 @@ def stop(
 
 
 def read_queue(
-    #args,  # Add any necessary arguments
+    # args,  # Add any necessary arguments
     main_logger: logger.Logger,
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
-    controller: worker_controller.WorkerController
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Read and print the output queue.
     """
 
-    while not controller.is_exit_requested: 
-        controller.check_pause() 
-        term = output_queue.queue.get() 
+    while not controller.is_exit_requested:
+        controller.check_pause()
+        term = output_queue.queue.get()
 
-        if term is None: 
+        if term is None:
             break
-        
+
         main_logger.info(f"Command Worker Output: {term}")
     # Add logic to read from your worker's output queue and print it using the logger
 
@@ -90,17 +90,16 @@ def read_queue(
 def put_queue(
     # args,  # Add any necessary arguments
     input_queue: queue_proxy_wrapper.QueueProxyWrapper,
-    path
+    path,
 ) -> None:
     """
     Place mocked inputs into the input queue periodically with period TELEMETRY_PERIOD.
     """
 
-    
     for telemetry_data in path:
-        input_queue.queue.put(telemetry_data) 
+        input_queue.queue.put(telemetry_data)
         time.sleep(TELEMETRY_PERIOD)
-    
+
     # Add logic to place the mocked inputs into your worker's input queue periodically
 
 
@@ -155,7 +154,7 @@ def main() -> int:
     controller = worker_controller.WorkerController()
 
     # Create a multiprocess manager for synchronized queues
-    manager = mp.Manager() 
+    manager = mp.Manager()
 
     # Create your queues
     input_queue = queue_proxy_wrapper.QueueProxyWrapper(manager)
@@ -249,17 +248,23 @@ def main() -> int:
     threading.Timer(TELEMETRY_PERIOD * len(path), stop, (controller,)).start()
 
     # Put items into input queue
-    threading.Thread(target=put_queue, args=(input_queue,path,)).start()
+    threading.Thread(
+        target=put_queue,
+        args=(
+            input_queue,
+            path,
+        ),
+    ).start()
 
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(main_logger, output_queue, controller)).start()
 
     command_worker.command_worker(
-        connection, 
-        TARGET, 
-        input_queue, 
-        output_queue, 
-        controller
+        connection,
+        TARGET,
+        input_queue,
+        output_queue,
+        controller,
         # Place your own arguments here
     )
     # =============================================================================================
