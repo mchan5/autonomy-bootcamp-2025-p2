@@ -45,12 +45,18 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    args,  # Add any necessary arguments
+    controller 
+    # args  Add any necessary arguments
 ) -> None:
     """
     Stop the workers.
     """
-    pass  # Add logic to stop your worker
+
+    # connection = mavutil.mavlink_connection(CONNECTION_STRING)
+    # # connection.recv_match(blocking=True)
+
+    controller.request_exit()
+    # Add logic to stop your worker
 
 
 # =================================================================================================
@@ -92,12 +98,19 @@ def main() -> int:
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Mock starting a worker, since cannot actually start a new process
+
+
     # Create a worker controller for your worker
+    controller = worker_controller.WorkerController()
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
-    threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (args,)).start()
+    threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (controller,)).start()
 
+    
     heartbeat_sender_worker.heartbeat_sender_worker(
+        connection,
+        main_logger,
+        controller
         # Place your own arguments here
     )
     # =============================================================================================
