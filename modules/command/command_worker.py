@@ -22,8 +22,6 @@ def command_worker(
     input_queue: queue_proxy_wrapper.QueueProxyWrapper,
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
-    # args,  # Place your own arguments here
-    # Add other necessary worker arguments here
 ) -> None:
     """
     Worker process.
@@ -60,21 +58,37 @@ def command_worker(
 
     local_logger.info("Command object created successfully")
 
-    # Main loop: do work.
-
-    # controller = worker_controller.WorkerController()
-
+    # Main loop: do work
     while not controller.is_exit_requested():
         controller.check_pause()
 
+        # Get telemetry data from input queue
         try:
-            current_telemetry = input_queue.queue.get(timeout=1.0)
+            current_telemetry = input_queue.queue.get(timeout=0.5)
 
-        except TimeoutError:
+            if current_telemetry is None:
+                local_logger.warning("Received None from telemetry queue")
+                continue
+
+            # Log the received telemetry
+            local_logger.info(
+                f"Received telemetry: pos=({current_telemetry.x:.2f}, {current_telemetry.y:.2f}, {current_telemetry.z:.2f}), yaw={current_telemetry.yaw:.2f}"
+            )
+
+            # Run command logic
+            command_string = command_instance.run(current_telemetry)
+
+            # Only send to output queue if a command was issued
+            if command_string:
+                output_queue.queue.put(command_string)
+                local_logger.info(f"Command output: {command_string}")
+
+        except Exception as e:
+            # Timeout or other queue error - continue waiting
+            local_logger.debug(f"Queue timeout or error: {e}")
             continue
 
-        # response = command_instance.run(current_telemetry)
-        output_queue.queue.put(command_instance.run(current_telemetry), timeout=0.5)
+    local_logger.info("Command worker stopped")
 
 
 # =================================================================================================

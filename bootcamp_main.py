@@ -110,27 +110,40 @@ def main() -> int:
         local_logger=main_logger,
     )
 
+    if not result:
+        main_logger.error("Failed to create Heartbeat Sender")
+        return -1
+
     # Heartbeat receiver
     result, heartbeat_receiver_properties = worker_manager.WorkerProperties.create(
         count=HEARTBEAT_RECEIVER_COUNT,
         target=heartbeat_receiver_worker.heartbeat_receiver_worker,
         work_arguments=(connection,),
-        input_queues=[heartbeat_input_queue],
+        input_queues=[],
         output_queues=[heartbeat_output_queue],
         controller=controller,
         local_logger=main_logger,
     )
+
+    if not result:
+        main_logger.error("Failed to create Heartbeat Receiver")
+        return -1
+
     # Telemetry
 
     result, telemetry_properties = worker_manager.WorkerProperties.create(
         count=TELEMETRY_WORKER_COUNT,
         target=telemetry_worker.telemetry_worker,
         work_arguments=(connection,),
-        input_queues=[telemetry_input_queue],
+        input_queues=[],
         output_queues=[telemetry_output_queue],
         controller=controller,
         local_logger=main_logger,
     )
+
+    if not result:
+        main_logger.error("Failed to create Telemetry Worker")
+        return -1
 
     # Command
 
@@ -143,6 +156,10 @@ def main() -> int:
         controller=controller,
         local_logger=main_logger,
     )
+
+    if not result:
+        main_logger.error("Failed to create Command Worker")
+        return -1
 
     # Create the workers (processes) and obtain their managers
 
@@ -169,10 +186,24 @@ def main() -> int:
     # Main's work: read from all queues that output to main, and log any commands that we make
 
     start_time = time.time()
+    last_heartbeat_time = time.time()
+    HEARTBEAT_TIMEOUT = 5.0
     # Continue running for 100 seconds or until the drone disconnects
 
-    while time.time() - start_time < 100 and not controller.is_exit_requested:
+    while time.time() - start_time < 100 and not controller.is_exit_requested():
         controller.check_pause()
+
+        try:
+            heartbeat_msg = heartbeat_output_queue.queue.get_nowait()
+            if heartbeat_msg is not None:
+                last_heartbeat_time = time.time()
+        except queue.Empty:
+            pass
+
+        if time.time() - last_heartbeat_time > HEARTBEAT_TIMEOUT:
+            main_logger.info("Drone Disconnected - No heartbeats")
+            break
+
         try:
             cmd = command_output_queue.queue.get(timeout=0.5)
             if cmd is not None:
@@ -200,7 +231,9 @@ def main() -> int:
     main_logger.info("Stopped")
 
     # We can reset controller in case we want to reuse it
+
     # Alternatively, create a new WorkerController instance
+    controller = worker_controller.WorkerController()
 
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

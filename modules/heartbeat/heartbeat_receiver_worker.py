@@ -7,7 +7,7 @@ import pathlib
 
 from pymavlink import mavutil
 
-# from utilities.workers import queue_proxy_wrapper
+from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
 from . import heartbeat_receiver
 from ..common.modules.logger import logger
@@ -18,10 +18,8 @@ from ..common.modules.logger import logger
 # =================================================================================================
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
-    local_logger: logger,
     controller: worker_controller,
-    # args  # Place your own arguments here
-    # Add other necessary worker arguments here
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
 ) -> None:
     """
     Worker process.
@@ -59,11 +57,17 @@ def heartbeat_receiver_worker(
         return
 
     while not controller.is_exit_requested():
-        heartbeat_receiver_instance.run()
+
+        result, state = heartbeat_receiver_instance.run()
+        if not result:
+            local_logger.error("Heartbeat receiver run failed")
+
+        output_queue.queue.put(state)
+
         local_logger.info("Heartbeat received check")
 
     # Main loop: do work.
-
+    return
     # time???
 
 

@@ -21,14 +21,13 @@ class HeartbeatReceiver:
     def create(
         cls,
         connection: mavutil.mavfile,
-        # args  Put your own arguments here
-        local_logger: logger.Logger,
+        main_logger: logger.Logger,
     ) -> tuple:
         """
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
 
-        return True, HeartbeatReceiver(cls, connection, local_logger)
+        return True, HeartbeatReceiver(cls.__private_key, connection, main_logger)
 
         # Create a HeartbeatReceiver object
 
@@ -36,34 +35,40 @@ class HeartbeatReceiver:
         self,
         key: object,
         connection: mavutil.mavfile,
-        local_logger: logger,
-        # args Put your own arguments here
+        main_logger: logger.Logger,
     ) -> None:
         assert key is HeartbeatReceiver.__private_key, "Use create() method"
 
         self.connection = connection
-        self.local_logger = local_logger
+        self.main_logger = main_logger
         self.missed_heartbeats = 0
+        self.state = "Disconnected"
         # Do any intializiation here
 
     def run(
         self,
-        # args Put your own arguments here
     ) -> None:
         "Runs Code"
         msg = self.connection.recv_match(type="HEARTBEAT", blocking=False)
 
         if msg is not None:
+            if self.state == "Disconnected":
+                self.main_logger.info("Connection Established")
+            self.state = "Connected"
             self.missed_heartbeats = 0
-            self.local_logger.info("Heartbeat received")
-            return True
+
+            self.main_logger.info("Heartbeat received")
+            return True, self.state
 
         self.missed_heartbeats += 1
 
-        if self.missed_heartbeats == 5:
-            self.local_logger.error("Connection Lost: Missed 5 Heartbeats")
-            return False
+        if self.missed_heartbeats >= 5:
+            self.state = "Disconnected"
+            self.main_logger.info("Disconnected")
+            self.main_logger.info("Connection Lost: Missed 5 Heartbeats")
+            return False, self.state
 
+        # self.local_logger.info("Still Connected")
         return True
         # """
         # Attempt to recieve a heartbeat message.

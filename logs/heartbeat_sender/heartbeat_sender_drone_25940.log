@@ -1,2 +1,0 @@
-22:09:13: [INFO] [C:\Users\Happy\Desktop\OneDrive\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 40] Logger initialized
-22:09:14: [ERROR] [C:\Users\Happy\Desktop\OneDrive\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 61] Drone: Most likely sent heartbeats too fast: measured period was 0.9619295597076416s

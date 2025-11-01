@@ -46,7 +46,6 @@ def start_drone() -> None:
 # =================================================================================================
 def stop(
     controller: object,
-    # args  Add any necessary arguments
 ) -> None:
     """
     Stop the workers.
@@ -111,6 +110,7 @@ def main() -> int:
         controller,
         # Place your own arguments here
     )
+
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

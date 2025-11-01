@@ -20,8 +20,6 @@ def heartbeat_sender_worker(
     connection: mavutil.mavfile,
     local_logger: logger.Logger,
     controller: worker_controller,
-    # args,  # Place your own arguments here
-    # Add other necessary worker arguments here
 ) -> None:
     """
     Worker process.
@@ -57,10 +55,28 @@ def heartbeat_sender_worker(
         local_logger.error("Failed to create HeartbeatSender")
         return
 
+    period = 1.0
+    next_time = time.time() + period
+
     while not controller.is_exit_requested():
+
+        controller.request_resume()
+
+        while next_time > time.time():
+            local_logger.info(f"{next_time - time.time()} seconds difference")
+
+        controller.request_resume()
+
         heartbeat_sender_instance.run()
         local_logger.info("Heartbeat Sent")
-        time.sleep(1)
+
+        controller.request_pause()
+
+        # sleep_time = max(0, next_time - time.time())
+        # time.sleep(sleep_time)
+        next_time = time.time() + period
+
+        controller.request_resume()
 
     return
 

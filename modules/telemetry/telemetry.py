@@ -76,7 +76,6 @@ class Telemetry:
     def create(
         cls,
         connection: mavutil.mavfile,
-        # args,  # Put your own arguments here
         local_logger: logger.Logger,
     ) -> tuple:
         """
@@ -91,7 +90,6 @@ class Telemetry:
         self,
         key: object,
         connection: mavutil.mavfile,
-        # args,  # Put your own arguments here
         local_logger: logger.Logger,
     ) -> None:
         assert key is Telemetry.__private_key, "Use create() method"
@@ -103,7 +101,6 @@ class Telemetry:
 
     def run(
         self,
-        # args,  # Put your own arguments here
     ) -> TelemetryData:
         """
         Receive LOCAL_POSITION_NED and ATTITUDE messages from the drone,
@@ -115,48 +112,87 @@ class Telemetry:
 
         position_msg = self.connection.recv_match(type="LOCAL_POSITION_NED", blocking=False)
         attitude_msg = self.connection.recv_match(type="ATTITUDE", blocking=False)
-
+        position_time = None
+        attitude_time = None
         if position_msg is not None:
-            self.telemetry_data.time_since_boot = getattr(
-                position_msg, "time_boot_ms", self.last_telemetry.time_since_boot
-            )
-            self.telemetry_data.x = getattr(position_msg, "x", self.last_telemetry.x)
-            self.telemetry_data.y = getattr(position_msg, "y", self.last_telemetry.y)
-            self.telemetry_data.z = getattr(position_msg, "z", self.last_telemetry.z)
-            self.telemetry_data.x_velocity = getattr(
-                position_msg, "vx", self.last_telemetry.x_velocity
-            )
-            self.telemetry_data.y_velocity = getattr(
-                position_msg, "vy", self.last_telemetry.y_velocity
-            )
-            self.telemetry_data.z_velocity = getattr(
-                position_msg, "vz", self.last_telemetry.z_velocity
-            )
+            self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
+            self.telemetry_data.x = position_msg.x
+            self.telemetry_data.y = position_msg.y
+            self.telemetry_data.z = position_msg.z
+            self.telemetry_data.x_velocity = position_msg.vx
+            self.telemetry_data.y_velocity = position_msg.vy
+            self.telemetry_data.z_velocity = position_msg.vz
 
             self.local_logger.info("Position Updated!")
+            self.local_logger.info(f"Position Updated! time_boot_ms: {position_time}")
 
-            # Update last known attitude
         if attitude_msg is not None:
-            self.telemetry_data.roll = getattr(attitude_msg, "roll", self.last_telemetry.roll)
-            self.telemetry_data.pitch = getattr(attitude_msg, "pitch", self.last_telemetry.pitch)
-            self.telemetry_data.yaw = getattr(attitude_msg, "yaw", self.last_telemetry.yaw)
-            self.telemetry_data.roll_speed = getattr(
-                attitude_msg, "rollspeed", self.last_telemetry.roll_speed
-            )
-            self.telemetry_data.pitch_speed = getattr(
-                attitude_msg, "pitchspeed", self.last_telemetry.pitch_speed
-            )
-            self.telemetry_data.yaw_speed = getattr(
-                attitude_msg, "yawspeed", self.last_telemetry.yaw_speed
-            )
+            self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
+            self.telemetry_data.roll = attitude_msg.roll
+            self.telemetry_data.pitch = attitude_msg.pitch
+            self.telemetry_data.yaw = attitude_msg.yaw
+            self.telemetry_data.roll_speed = attitude_msg.rollspeed
+            self.telemetry_data.pitch_speed = attitude_msg.pitchspeed
+            self.telemetry_data.yaw_speed = attitude_msg.yawspeed
 
             self.local_logger.info("Attitude Updated!")
+            self.local_logger.info(f"Attitude Updated! time_boot_ms: {attitude_time}")
+
+        time = []
+        if position_time is not None:
+            time.append(position_time)
+
+        if attitude_time is not None:
+            time.append(attitude_time)
+
+        if time is not None:
+            self.telemetry_data.time_since_boot = max(time)
 
         self.local_logger.info(
-            f" Telemetry Data: {self.telemetry_data}, Time Stamp: {self.telemetry_data.time_since_boot}"
+            f"Telemetry Data: {self.telemetry_data}, Time Stamp: {self.telemetry_data.time_since_boot}"
         )
 
         return self.telemetry_data
+
+        # if position_msg is not None:
+        #     self.telemetry_data.time_since_boot = getattr(
+        #         position_msg, "time_boot_ms", self.last_telemetry.time_since_boot
+        #     )
+        #     self.telemetry_data.x = getattr(position_msg, "x", self.last_telemetry.x)
+        #     self.telemetry_data.y = getattr(position_msg, "y", self.last_telemetry.y)
+        #     self.telemetry_data.z = getattr(position_msg, "z", self.last_telemetry.z)
+        #     self.telemetry_data.x_velocity = getattr(
+        #         position_msg, "vx", self.last_telemetry.x_velocity
+        #     )
+        #     self.telemetry_data.y_velocity = getattr(
+        #         position_msg, "vy", self.last_telemetry.y_velocity
+        #     )
+        #     self.telemetry_data.z_velocity = getattr(
+        #         position_msg, "vz", self.last_telemetry.z_velocity
+        #     )
+
+        #     self.local_logger.info("Position Updated!")
+
+        #     # Update last known attitude
+        # if attitude_msg is not None:
+        #     self.telemetry_data.roll = getattr(attitude_msg, "roll", self.last_telemetry.roll)
+        #     self.telemetry_data.pitch = getattr(attitude_msg, "pitch", self.last_telemetry.pitch)
+        #     self.telemetry_data.yaw = getattr(attitude_msg, "yaw", self.last_telemetry.yaw)
+        #     self.telemetry_data.roll_speed = getattr(
+        #         attitude_msg, "rollspeed", self.last_telemetry.roll_speed
+        #     )
+        #     self.telemetry_data.pitch_speed = getattr(
+        #         attitude_msg, "pitchspeed", self.last_telemetry.pitch_speed
+        #     )
+        #     self.telemetry_data.yaw_speed = getattr(
+        #         attitude_msg, "yawspeed", self.last_telemetry.yaw_speed
+        #     )
+
+        #     self.local_logger.info("Attitude Updated!")
+
+        # self.local_logger.info(
+        #     f" Telemetry Data: {self.telemetry_data}, Time Stamp: {self.telemetry_data.time_since_boot}"
+        # )
 
 
 # =================================================================================================

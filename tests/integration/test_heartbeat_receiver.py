@@ -49,8 +49,8 @@ def start_drone() -> None:
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def stop(
-    controller: object,
-    # args Add any necessary arguments
+    controller: worker_controller.WorkerController,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
 ) -> None:
     """
     Stop the workers.
@@ -58,12 +58,12 @@ def stop(
     """
 
     controller.request_exit()
+    output_queue.fill_and_drain_queue()
 
     # Add logic to stop your worker
 
 
 def read_queue(
-    # args,  # Add any necessary arguments
     main_logger: logger.Logger,
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
@@ -72,15 +72,16 @@ def read_queue(
     Read and print the output queue.
     """
 
-    while not controller.is_exit_requested:
+    while not controller.is_exit_requested():
         controller.check_pause()
-
         term = output_queue.queue.get()
 
-        if term is None:
-            break
+        if term is not None:
+            main_logger.info(f"Heartbeat Receiver Output: {term}")
 
-        main_logger.info(f"Heartbeat Receiver Output: {term}")
+        main_logger.info("Still Connected")
+
+    main_logger.info("Disconnected) ")
 
     # Add logic to read from your worker's output queue and print it using the logger
 
@@ -145,7 +146,7 @@ def main() -> int:
     threading.Timer(
         HEARTBEAT_PERIOD * (NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 2),
         stop,
-        (controller,),
+        (controller, output_queue),
     ).start()
 
     # Read the main queue (worker outputs)
@@ -153,10 +154,12 @@ def main() -> int:
 
     heartbeat_receiver_worker.heartbeat_receiver_worker(
         connection,
-        main_logger,
+        # main_logger,
         controller,
+        output_queue,
         # Place your own arguments here
     )
+
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

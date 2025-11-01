@@ -20,8 +20,7 @@ def telemetry_worker(
     connection: mavutil.mavfile,
     local_logger: logger,
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
-    # args,  # Place your own arguments here
-    # Add other necessary worker arguments here
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Worker process.
@@ -50,18 +49,20 @@ def telemetry_worker(
     # =============================================================================================
     # Instantiate class object (telemetry.Telemetry)
     result, telemetry_instance = telemetry.Telemetry.create(connection, local_logger)
-
+    local_logger.info(telemetry_instance)
     # Main loop: do work.
 
     if not result:
         local_logger.error("Failed to have telemetry data", True)
         return
 
-    controller = worker_controller.WorkerController()
-
-    while not controller.is_exit_requested:
+    # controller = worker_controller.WorkerController()
+    # local_logger.info("Info Made")
+    while not controller.is_exit_requested():
+        controller.check_pause()
         telemetry_data = telemetry_instance.run()
-        output_queue.queue.put(telemetry_data)
+        output_queue.queue.put(telemetry_data, timeout=0.5)
+        local_logger.info(f"Queued telemetry: {telemetry_data}")
 
 
 # =================================================================================================
