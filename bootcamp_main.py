@@ -88,10 +88,8 @@ def main() -> int:
     manager = mp.Manager()
     # Create queues
 
-    heartbeat_input_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, INPUT_QUEUE_MAXSIZE)
     heartbeat_output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, OUTPUT_QUEUE_MAXSIZE)
 
-    telemetry_input_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, INPUT_QUEUE_MAXSIZE)
     telemetry_output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, OUTPUT_QUEUE_MAXSIZE)
 
     command_input_queue = telemetry_output_queue  # telemetry feeds command
