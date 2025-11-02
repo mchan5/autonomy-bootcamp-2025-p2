@@ -80,7 +80,7 @@ def command_worker(
                 local_logger.info(f"Command output: {command_string}")
 
         except TimeoutError:
-            local_logger.debug(f"Queue timeout or error: {e}")
+            local_logger.debug(f"Queue timeout or error")
             continue
 
     local_logger.info("Command worker stopped")

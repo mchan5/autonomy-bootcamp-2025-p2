@@ -173,6 +173,8 @@ class Command:  # pylint: disable=too-many-instance-attributes
 
         self.last_telemetry = current_telemetry
 
+        return "Nothing Done"
+
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
