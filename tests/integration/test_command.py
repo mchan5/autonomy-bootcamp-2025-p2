@@ -78,7 +78,7 @@ def read_queue(
     Read and print the output queue.
     """
 
-    while not controller.is_exit_requested:
+    while not controller.is_exit_requested():
         controller.check_pause()
         term = output_queue.queue.get()
 

@@ -49,7 +49,7 @@ def telemetry_worker(
     # =============================================================================================
     # Instantiate class object (telemetry.Telemetry)
     result, telemetry_instance = telemetry.Telemetry.create(connection, local_logger)
-    local_logger.info(telemetry_instance)
+    # local_logger.info(telemetry_instance)
     # Main loop: do work.
 
     if not result:
@@ -61,10 +61,11 @@ def telemetry_worker(
     while not controller.is_exit_requested():
         controller.check_pause()
         telemetry_data = telemetry_instance.run()
-        output_queue.queue.put(telemetry_data, timeout=0.5)
-        local_logger.info(f"Queued telemetry: {telemetry_data}")
 
-
+        if telemetry_data is not None and result is not None: 
+            output_queue.queue.put(telemetry_data)
+            local_logger.info(f"Queued telemetry: {telemetry_data}")
+            
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================

@@ -140,7 +140,7 @@ def main() -> int:
 
     # Create your queues
 
-    output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager.Queue())
+    output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager, 0)
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(

@@ -61,6 +61,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         self.target = target
         self.local_logger = local_logger
         self.last_telemetry = None
+        self.counter = 0 
 
     def run(
         self,
@@ -75,27 +76,26 @@ class Command:  # pylint: disable=too-many-instance-attributes
             return
 
         # Log average velocity for this trip so far
-
+        self.counter += 1 
         if (
             self.last_telemetry is not None
-            and current_telemetry.time_since_boot is not None
-            and self.last_telemetry.time_since_boot is not None
         ):
-            dx = current_telemetry.x - self.last_telemetry.x
-            dy = current_telemetry.y - self.last_telemetry.y
-            dz = current_telemetry.z - self.last_telemetry.z
-            dt = (current_telemetry.time_since_boot - self.last_telemetry.time_since_boot) / 1000
-            # dt = 1
+            dx = current_telemetry.x # - self.last_telemetry.x
+            dy = current_telemetry.y # - self.last_telemetry.y
+            dz = current_telemetry.z # - self.last_telemetry.z
+            # dt = (current_telemetry.time_since_boot - self.last_telemetry.time_since_boot) / 1000
+            dt = self.counter 
             avg_vel = (dx / dt, dy / dt, dz / dt)
 
             self.local_logger.info(f"Average velocity vector: {avg_vel} m/s")
-        else:
-            if self.last_telemetry is None:
-                self.local_logger.debug("No previous telemetry for velocity calculation")
-            elif current_telemetry.time_since_boot is None:
-                self.local_logger.warning("Current telemetry time_since_boot is None")
-            elif self.last_telemetry.time_since_boot is None:
-                self.local_logger.warning("Last telemetry time_since_boot is None")
+            
+        # else:
+        #     if self.last_telemetry is None:
+        #         self.local_logger.debug("No previous telemetry for velocity calculation")
+        #     elif current_telemetry.time_since_boot is None:
+        #         self.local_logger.warning("Current telemetry time_since_boot is None")
+        #     elif self.last_telemetry.time_since_boot is None:
+        #         self.local_logger.warning("Last telemetry time_since_boot is None")
         # if (
         #     self.last_telemetry is not None
         #     and current_telemetry.time_since_boot is not None
@@ -152,7 +152,8 @@ class Command:  # pylint: disable=too-many-instance-attributes
                 param6=0,
                 param7=self.target.z,
             )
-            self.local_logger.info(f"CHANGE ALTITUDE: {delta_height:.2f}")
+            # self.local_logger.info(f"CHANGE ALTITUDE: {delta_height:.2f}")
+            return f"CHANGE ALTITUDE: {delta_height:.2f}"
 
         elif abs(delta_yaw_deg) > 5:
             self.connection.mav.command_long_send(
@@ -169,7 +170,8 @@ class Command:  # pylint: disable=too-many-instance-attributes
                 param7=0,
             )
 
-            self.local_logger.info(f"CHANGE YAW: {delta_yaw_deg:.2f}")
+            # self.local_logger.info(f"CHANGE YAW: {delta_yaw_deg:.2f}")
+            return f"CHANGE YAW: {delta_yaw_deg:.2f}"
 
         self.last_telemetry = current_telemetry
 

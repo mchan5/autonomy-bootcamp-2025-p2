@@ -112,10 +112,9 @@ class Telemetry:
 
         position_msg = self.connection.recv_match(type="LOCAL_POSITION_NED", blocking=False)
         attitude_msg = self.connection.recv_match(type="ATTITUDE", blocking=False)
-        position_time = None
-        attitude_time = None
+
         if position_msg is not None:
-            self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
+            # self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
             self.telemetry_data.x = position_msg.x
             self.telemetry_data.y = position_msg.y
             self.telemetry_data.z = position_msg.z
@@ -123,11 +122,13 @@ class Telemetry:
             self.telemetry_data.y_velocity = position_msg.vy
             self.telemetry_data.z_velocity = position_msg.vz
 
-            self.local_logger.info("Position Updated!")
-            self.local_logger.info(f"Position Updated! time_boot_ms: {position_time}")
+            # self.local_logger.info(
+            #     f"Received telemetry: {self.telemetry_data}"
+            # )
 
-        if attitude_msg is not None:
-            self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
+        # if attitude_msg is not None:
+        #     # self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
+        if attitude_msg is not None: 
             self.telemetry_data.roll = attitude_msg.roll
             self.telemetry_data.pitch = attitude_msg.pitch
             self.telemetry_data.yaw = attitude_msg.yaw
@@ -135,24 +136,31 @@ class Telemetry:
             self.telemetry_data.pitch_speed = attitude_msg.pitchspeed
             self.telemetry_data.yaw_speed = attitude_msg.yawspeed
 
-            self.local_logger.info("Attitude Updated!")
-            self.local_logger.info(f"Attitude Updated! time_boot_ms: {attitude_time}")
+            # self.local_logger.info(
+            #     f"Received telemetry: {self.telemetry_data}"
+            # )
+            # self.local_logger.info(f"TelemetryData: {self.telemetry_data}")
+        if attitude_msg is not None or position_msg is not None:
+            return f"Telemetry Data: {self.telemetry_data}"
 
-        time = []
-        if position_time is not None:
-            time.append(position_time)
+        return 
+ 
 
-        if attitude_time is not None:
-            time.append(attitude_time)
+        # time = []
+        # if position_time is not None:
+        #     time.append(position_time)
 
-        if time is not None:
-            self.telemetry_data.time_since_boot = max(time)
+        # if attitude_time is not None:
+        #     time.append(attitude_time)
 
-        self.local_logger.info(
-            f"Telemetry Data: {self.telemetry_data}, Time Stamp: {self.telemetry_data.time_since_boot}"
-        )
+        # if time is not None:
+        #     self.telemetry_data.time_since_boot = max(time)
 
-        return self.telemetry_data
+        # self.local_logger.info(
+        #     f"Telemetry Data: {self.telemetry_data}" #, Time Stamp: {self.telemetry_data.time_since_boot}"
+        # )
+
+        # return True, self.telemetry_data
 
         # if position_msg is not None:
         #     self.telemetry_data.time_since_boot = getattr(

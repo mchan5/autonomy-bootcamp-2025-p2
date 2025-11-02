@@ -1,6 +1,0 @@
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 47] Logger initialized
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 54] <modules.telemetry.telemetry.Telemetry object at 0x000001F4A30ACC20>
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry.py | run | 129] Position Updated!
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry.py | run | 130] Position Updated! time_boot_ms: None
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry.py | run | 142] Attitude Updated!
-23:22:50: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry.py | run | 143] Attitude Updated! time_boot_ms: None

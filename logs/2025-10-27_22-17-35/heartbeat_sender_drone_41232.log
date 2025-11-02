@@ -1,5 +1,0 @@
-22:17:36: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 40] Logger initialized
-22:17:38: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 71] Drone: Recieved heartbeat!
-22:17:39: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 71] Drone: Recieved heartbeat!
-22:17:40: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 71] Drone: Recieved heartbeat!
-22:17:41: [ERROR] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\mock_drones\heartbeat_sender_drone.py | main | 56] Drone: Sent incorrect message type or didn't recieve a message in time: None

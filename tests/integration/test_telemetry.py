@@ -69,7 +69,7 @@ def read_queue(
     """
     # Add logic to read from your worker's output queue and print it using the logger
 
-    while not controller.is_exit_requested:
+    while not controller.is_exit_requested():
         controller.check_pause()
         term = output_queue.queue.get()
 
@@ -129,7 +129,7 @@ def main() -> int:
     manager = mp.Manager()
     # Create your queues
 
-    output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager)
+    output_queue = queue_proxy_wrapper.QueueProxyWrapper(manager,0)
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(
