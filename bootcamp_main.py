@@ -185,7 +185,7 @@ def main() -> int:
 
     start_time = time.time()
     last_heartbeat_time = time.time()
-    HEARTBEAT_TIMEOUT = 5.0
+    heartbeat_timeout = 5.0
     # Continue running for 100 seconds or until the drone disconnects
 
     while time.time() - start_time < 100 and not controller.is_exit_requested():
@@ -198,7 +198,7 @@ def main() -> int:
         except queue.Empty:
             pass
 
-        if time.time() - last_heartbeat_time > HEARTBEAT_TIMEOUT:
+        if time.time() - last_heartbeat_time > heartbeat_timeout:
             main_logger.info("Drone Disconnected - No heartbeats")
             break
 
