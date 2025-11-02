@@ -79,7 +79,7 @@ def command_worker(
                 output_queue.queue.put(command_string)
                 local_logger.info(f"Command output: {command_string}")
 
-        except Exception as e:
+        except TimeoutError:
             local_logger.debug(f"Queue timeout or error: {e}")
             continue
 

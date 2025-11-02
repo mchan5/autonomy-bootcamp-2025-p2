@@ -73,7 +73,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
 
         if current_telemetry is None:
             self.local_logger.warning("No telemetry data receieved!")
-            return
+            return "No telemetry data received"
 
         # Log average velocity for this trip so far
         self.counter += 1
@@ -153,7 +153,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
             # self.local_logger.info(f"CHANGE ALTITUDE: {delta_height:.2f}")
             return f"CHANGE ALTITUDE: {delta_height:.2f}"
 
-        elif abs(delta_yaw_deg) > 5:
+        if abs(delta_yaw_deg) > 5:
             self.connection.mav.command_long_send(
                 target_system=1,
                 target_component=0,

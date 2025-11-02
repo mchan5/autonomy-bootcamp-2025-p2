@@ -50,7 +50,7 @@ class HeartbeatSender:
             )
             return True
 
-        except:
+        except TimeoutError:
             return False
 
         # Send a heartbeat message

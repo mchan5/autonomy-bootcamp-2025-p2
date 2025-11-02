@@ -143,7 +143,7 @@ class Telemetry:
         if attitude_msg is not None or position_msg is not None:
             return f"Telemetry Data: {self.telemetry_data}"
 
-        return
+        return "Failed to receive telemetry data"
 
         # time = []
         # if position_time is not None:
