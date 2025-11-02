@@ -128,7 +128,7 @@ class Telemetry:
 
         # if attitude_msg is not None:
         #     # self.telemetry_data.time_since_boot = 1  # position_msg.time_boot_ms
-        if attitude_msg is not None: 
+        if attitude_msg is not None:
             self.telemetry_data.roll = attitude_msg.roll
             self.telemetry_data.pitch = attitude_msg.pitch
             self.telemetry_data.yaw = attitude_msg.yaw
@@ -143,8 +143,7 @@ class Telemetry:
         if attitude_msg is not None or position_msg is not None:
             return f"Telemetry Data: {self.telemetry_data}"
 
-        return 
- 
+        return
 
         # time = []
         # if position_time is not None:

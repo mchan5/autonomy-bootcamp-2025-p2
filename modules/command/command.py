@@ -61,7 +61,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         self.target = target
         self.local_logger = local_logger
         self.last_telemetry = None
-        self.counter = 0 
+        self.counter = 0
 
     def run(
         self,
@@ -76,19 +76,17 @@ class Command:  # pylint: disable=too-many-instance-attributes
             return
 
         # Log average velocity for this trip so far
-        self.counter += 1 
-        if (
-            self.last_telemetry is not None
-        ):
-            dx = current_telemetry.x # - self.last_telemetry.x
-            dy = current_telemetry.y # - self.last_telemetry.y
-            dz = current_telemetry.z # - self.last_telemetry.z
+        self.counter += 1
+        if self.last_telemetry is not None:
+            dx = current_telemetry.x  # - self.last_telemetry.x
+            dy = current_telemetry.y  # - self.last_telemetry.y
+            dz = current_telemetry.z  # - self.last_telemetry.z
             # dt = (current_telemetry.time_since_boot - self.last_telemetry.time_since_boot) / 1000
-            dt = self.counter 
+            dt = self.counter
             avg_vel = (dx / dt, dy / dt, dz / dt)
 
             self.local_logger.info(f"Average velocity vector: {avg_vel} m/s")
-            
+
         # else:
         #     if self.last_telemetry is None:
         #         self.local_logger.debug("No previous telemetry for velocity calculation")

@@ -62,10 +62,11 @@ def telemetry_worker(
         controller.check_pause()
         telemetry_data = telemetry_instance.run()
 
-        if telemetry_data is not None and result is not None: 
+        if telemetry_data is not None and result is not None:
             output_queue.queue.put(telemetry_data)
             local_logger.info(f"Queued telemetry: {telemetry_data}")
-            
+
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
