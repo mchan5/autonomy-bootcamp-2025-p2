@@ -1,6 +1,5 @@
-18:42:12: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\common\modules\logger\logger_main_setup.py | setup_main_logger | 62] main logger initialized
-18:42:13: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | main | 117] Connected!
-18:42:14: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:13: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 45] Logger initialized
+18:42:14: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 333,
             x: 0.0,
             y: 0.0,
@@ -15,7 +14,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:15: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:15: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 666,
             x: 0.5,
             y: 0.0,
@@ -30,7 +29,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:16: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:16: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 1333,
             x: 1.0,
             y: 0.0,
@@ -45,7 +44,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:17: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:17: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 1666,
             x: 1.5,
             y: 0.0,
@@ -60,7 +59,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:18: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:18: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 2333,
             x: 2.0,
             y: 0.0,
@@ -75,7 +74,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:19: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:19: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 2666,
             x: 2.5,
             y: 0.0,
@@ -90,7 +89,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:20: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:20: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 3333,
             x: 3.0,
             y: 0.0,
@@ -105,7 +104,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:21: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:21: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 3666,
             x: 3.5,
             y: 0.0,
@@ -120,7 +119,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:22: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:22: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 4333,
             x: 4.0,
             y: 0.0,
@@ -135,7 +134,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:23: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:23: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 4666,
             x: 4.5,
             y: 0.0,
@@ -150,7 +149,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:24: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:24: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 111,
             x: 3.0,
             y: 2.0,
@@ -165,7 +164,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:25: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:25: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 500,
             x: 0.0,
             y: 0.0,
@@ -180,7 +179,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:26: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:26: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 1000,
             x: 0.6666666865348816,
             y: 0.0,
@@ -195,7 +194,7 @@
             pitch_speed: 0.0,
             yaw_speed: 3.1415927410125732
         }
-18:42:27: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\tests\integration\test_telemetry.py | read_queue | 76] Telemetry Worker Output: Telemetry Data: {
+18:42:27: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\telemetry\telemetry_worker.py | telemetry_worker | 65] Queued telemetry: Telemetry Data: {
             time_since_boot: 1500,
             x: 1.0,
             y: 0.0,

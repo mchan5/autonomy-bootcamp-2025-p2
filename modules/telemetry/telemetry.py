@@ -6,6 +6,8 @@ from pymavlink import mavutil
 
 from ..common.modules.logger import logger
 
+import time
+
 
 class TelemetryData:  # pylint: disable=too-many-instance-attributes
     """
@@ -108,6 +110,10 @@ class Telemetry:
         # Read MAVLink message ATTITUDE (30)
         # Return the most recent of both, and use the most recent message's timestamp
 
+        initialTime = time.time()
+        while (time.time() - initialTime) < 1:
+            ()
+
         position_msg = self.connection.recv_match(type="LOCAL_POSITION_NED", blocking=True)
         attitude_msg = self.connection.recv_match(type="ATTITUDE", blocking=True)
 
@@ -127,11 +133,12 @@ class Telemetry:
             self.telemetry_data.pitch_speed = attitude_msg.pitchspeed
             self.telemetry_data.yaw_speed = attitude_msg.yawspeed
 
-        if attitude_msg is not None or position_msg is not None:
+        if attitude_msg is not None and position_msg is not None:
             self.telemetry_data.time_since_boot = max(
                 attitude_msg.time_boot_ms, position_msg.time_boot_ms
             )
             return f"Telemetry Data: {self.telemetry_data}"
+            # return "Messages not received in time"
 
         return "Failed to Receive Data"
 

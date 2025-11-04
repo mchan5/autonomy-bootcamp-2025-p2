@@ -60,7 +60,6 @@ class Command:  # pylint: disable=too-many-instance-attributes
         self.connection = connection
         self.target = target
         self.local_logger = local_logger
-        self.last_telemetry = None
         self.velocity_x = 0
         self.velocity_y = 0
         self.velocity_z = 0
@@ -79,8 +78,9 @@ class Command:  # pylint: disable=too-many-instance-attributes
             return "No telemetry data received"
 
         # Log average velocity for this trip so far
-        self.counter += 1
-        if self.last_telemetry is not None:
+
+        if current_telemetry is not None:
+            self.counter += 1
             self.velocity_x += current_telemetry.x_velocity
             self.velocity_y += current_telemetry.y_velocity
             self.velocity_z += current_telemetry.z_velocity
@@ -150,8 +150,6 @@ class Command:  # pylint: disable=too-many-instance-attributes
             )
 
             return f"CHANGE YAW: {delta_yaw_deg:.2f}"
-
-        self.last_telemetry = current_telemetry
 
         return "Nothing Done"
 
