@@ -178,14 +178,27 @@ def main() -> int:
 
     if result_heartbeat_sender:
         heartbeat_sender_manager.start_workers()
+    else:
+        main_logger.warning("Heartbeat Sender Not Created")
+        return -1
 
     if result_heartbeat_receiver:
         heartbeat_receiver_manager.start_workers()
+    else:
+        main_logger.warning("Heartbeat Receiver Not Created")
+        return -1
+
     if result_telemetry:
         telemetry_manager.start_workers()
+    else:
+        main_logger.warning("Telemetry Not Created")
+        return -1
 
     if result_command:
         command_manager.start_workers()
+    else:
+        main_logger.warning("Command Not Created")
+        return -1
 
     main_logger.info("Started")
 

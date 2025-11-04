@@ -1,0 +1,30 @@
+16:59:28: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command_worker.py | command_worker | 46] Logger initialized for Command Worker
+16:59:28: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command_worker.py | command_worker | 59] Command object created successfully
+16:59:29: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
+16:59:30: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
+16:59:30: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
+16:59:31: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
+16:59:31: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 2.5, 0.0) m/s
+16:59:32: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 4.444444444444445, 0.0) m/s
+16:59:32: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 6.0, 0.0) m/s
+16:59:33: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (1.8181818181818181, 5.454545454545454, 0.0) m/s
+16:59:33: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (3.3333333333333335, 5.0, 0.0) m/s
+16:59:34: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (4.615384615384615, 4.615384615384615, 0.0) m/s
+16:59:34: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (4.285714285714286, 2.857142857142857, 0.0) m/s
+16:59:35: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (4.0, 1.3333333333333333, 0.0) m/s
+16:59:35: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (3.75, 0.0, 0.0) m/s
+16:59:36: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (2.3529411764705883, 0.0, 0.0) m/s
+16:59:36: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (1.1111111111111112, 0.0, 0.0) m/s
+16:59:37: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
+16:59:37: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 1.0, 0.0) m/s
+16:59:38: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 1.9047619047619047, 0.0) m/s
+16:59:38: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 2.727272727272727, 0.0) m/s
+16:59:39: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.8695652173913043, 2.608695652173913, 0.0) m/s
+16:59:39: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (1.6666666666666667, 2.5, 0.0) m/s
+16:59:40: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (2.4, 2.4, 0.0) m/s
+16:59:40: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (2.3076923076923075, 1.5384615384615385, 0.0) m/s
+16:59:41: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (2.2222222222222223, 0.7407407407407407, 0.0) m/s
+16:59:41: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (2.142857142857143, 0.0, 0.0) m/s
+16:59:42: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (1.3793103448275863, 0.0, 0.0) m/s
+16:59:42: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.6666666666666666, 0.0, 0.0) m/s
+16:59:43: [INFO] [C:\Users\Happy\Desktop\WARG Autonomy Bootcamp\autonomy-bootcamp-2025-p2\modules\command\command.py | run | 92] Average velocity vector: (0.0, 0.0, 0.0) m/s
